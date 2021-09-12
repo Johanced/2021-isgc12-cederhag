@@ -7,65 +7,16 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/btnLayout"
-        android:layout_width="400dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="472dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:outlineProvider="none"
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="1.0">
-
-        <Button
-            android:id="@+id/plusBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:text="+" />
-
-        <Button
-            android:id="@+id/minusBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/divideBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:text="/" />
-
-        <Button
-            android:id="@+id/multiplyBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:layout_weight="1"
-            android:text="*" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="409dp"
         android:layout_height="45dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="2dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/btnLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/resultView">
 
         <EditText
             android:id="@+id/num1"
@@ -97,42 +48,79 @@
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="409dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="80dp"
+    <TextView
+        android:id="@+id/resultView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical"
+        android:minHeight="48dp"
+        android:text="Result"
+        android:textAlignment="center"
+        android:textSize="24dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/resultView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:minHeight="48dp"
-            android:text="Result"
-            android:textAlignment="center"
-            android:textSize="24dp" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/clearBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="301dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="22dp"
         android:text="Clear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.913"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="409dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.053">
+
+        <Button
+            android:id="@+id/minusBtn"
+            android:layout_width="55dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:text="-" />
+
+        <Button
+            android:id="@+id/divideBtn"
+            android:layout_width="55dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="15dp"
+            android:text="/" />
+
+        <Button
+            android:id="@+id/plusBtn"
+            android:layout_width="55dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="15dp"
+            android:text="+" />
+
+        <Button
+            android:id="@+id/multiplyBtn"
+            android:layout_width="55dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="15dp"
+            android:text="*" />
+
+        <Button
+            android:id="@+id/equalBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="=" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

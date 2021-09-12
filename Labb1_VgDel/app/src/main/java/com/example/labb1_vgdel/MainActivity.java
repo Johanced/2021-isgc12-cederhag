@@ -3,6 +3,7 @@ package com.example.labb1_vgdel;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText num1, num2;
     private TextView result;
     private TextView operator;
+    private int operatorChoice;
+    private static final String TAG = MainActivity.class.getName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button multiplyBtn = findViewById(R.id.multiplyBtn);
         Button divideBtn = findViewById(R.id.divideBtn);
         Button clearBtn = findViewById(R.id.clearBtn);
+        Button equalBtn = findViewById(R.id.equalBtn);
         num1 = findViewById(R.id.num1);
         num2 =  findViewById(R.id.num2);
         result = findViewById(R.id.resultView);
@@ -40,34 +45,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         minusBtn.setOnClickListener(this);
         multiplyBtn.setOnClickListener(this);
         divideBtn.setOnClickListener(this);
+        equalBtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        TextView txtView;
         switch (view.getId()){
 
             case R.id.plusBtn:
-                int result1 = (int) calculate(1);
-                result.setText(String.valueOf(result1));
+                operatorChoice = 1;
                 operator.setText("+");
                 break;
 
             case R.id.minusBtn:
-                int result2 = (int) calculate(2);
-                result.setText(String.valueOf(result2));
+                operatorChoice = 2;
                 operator.setText("-");
                 break;
 
             case R.id.divideBtn:
-                float result3 = calculate(3);
-                result.setText(String.valueOf(result3));
+                operatorChoice = 3;
                 operator.setText("/");
                 break;
 
             case R.id.multiplyBtn:
-                int result4 = (int) calculate(4);
-                result.setText(String.valueOf(result4));
+                operatorChoice = 4;
                 operator.setText("*");
                 break;
 
@@ -77,6 +78,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 num1.setText("");
                 num2.setText("");
                 break;
+
+            case R.id.equalBtn:
+                if(operatorChoice == 0){
+
+                }
+                if(operatorChoice == 3){
+                    float equalRes = calculate(operatorChoice);
+                    result.setText(String.valueOf(equalRes));
+                }else{
+                    int equalResult = (int) calculate(operatorChoice);
+                    result.setText(String.valueOf(equalResult));
+                }
             default:
                 break;
         }
@@ -110,8 +123,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
         }catch (NumberFormatException e){
-            Toast toast=Toast.makeText(getApplicationContext(),"Error: "+""+e.toString(),Toast.LENGTH_SHORT);
-            toast.setMargin(80,50);
+            Toast toast=Toast.makeText(getApplicationContext(),"Fields can't be empty",Toast.LENGTH_SHORT);
+            Log.d(TAG, e.toString());
             toast.show();
         }
         return 0;
