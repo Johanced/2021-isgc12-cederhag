@@ -10,7 +10,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="386dp"
         android:layout_height="47dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="25dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,8 +29,6 @@
             android:minHeight="48dp"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <View style="@style/DividerVert" />
-
         <TextView
             android:id="@+id/OperatorTxt"
             android:layout_width="55dp"
@@ -39,7 +37,6 @@
             android:text="operator"
             android:textAlignment="center" />
 
-        <View style="@style/DividerVert" />
 
         <EditText
             android:id="@+id/num2"
@@ -68,18 +65,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/clearBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clear"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.0" />
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="386dp"
@@ -87,6 +72,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,39 +85,57 @@
             android:layout_height="48dp"
             android:text="+" />
 
-        <View style="@style/DividerVert" />
-
         <Button
             android:id="@+id/minusBtn"
             android:layout_width="55dp"
             android:layout_height="48dp"
+            android:layout_marginLeft="7dp"
             android:text="-" />
-
-        <View style="@style/DividerVert" />
 
         <Button
             android:id="@+id/divideBtn"
             android:layout_width="55dp"
             android:layout_height="48dp"
+            android:layout_marginLeft="7dp"
             android:text="/" />
-
-        <View style="@style/DividerVert" />
 
 
         <Button
             android:id="@+id/multiplyBtn"
             android:layout_width="55dp"
             android:layout_height="48dp"
+            android:layout_marginLeft="7dp"
             android:text="*" />
-
-        <View style="@style/DividerVert" />
 
         <Button
             android:id="@+id/equalBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
             android:text="=" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="269dp"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.0">
+
+        <View style="@style/Divider" />
+
+        <Button
+            android:id="@+id/clearBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Clear" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

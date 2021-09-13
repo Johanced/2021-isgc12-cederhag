@@ -80,9 +80,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.equalBtn:
-                if(operatorChoice == 0){
-                    break;
-                }
                 if(operatorChoice == 3){
                     float equalRes = calculate(operatorChoice);
                     result.setText(String.valueOf(equalRes));
