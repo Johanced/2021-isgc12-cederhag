@@ -34,7 +34,7 @@
             android:layout_width="55dp"
             android:layout_height="20dp"
             android:gravity="center"
-            android:text="operator"
+            android:text="Operator"
             android:textAlignment="center" />
 
 
