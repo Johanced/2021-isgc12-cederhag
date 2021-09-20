@@ -13,11 +13,10 @@
                 android:top="0dp" >
                 <stroke
                     android:width="10dp"
-                    android:color="#696969" />
-                <corners
-                    android:color="#0078a5"
-                    />
+                    android:color="#141414" />
+
             </shape>
+
         </rotate>
     </item>
 
