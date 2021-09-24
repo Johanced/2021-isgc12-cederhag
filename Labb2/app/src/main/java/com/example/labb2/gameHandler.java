@@ -15,10 +15,14 @@ public class gameHandler extends AppCompatActivity {
     private String theWord;
     private Vector<String> wordsLibrary;
     public char[] unknownWord;
+    private String chosenDifficulty;
 
     public gameHandler(String difficulty){
         wordsLibrary = new Vector<>();
         initWords();
+        chosenDifficulty = difficulty;
+        // Handle level of difficulty; not implemented
+
 
 
     }
@@ -92,14 +96,5 @@ public class gameHandler extends AppCompatActivity {
         return failNmr;
     }
 
-    public int getWordCount(){
-        int c = theWord.length();
-        Log.d(TAG, "getWordCount: "+c);
-        return c;
-    }
 
-    public void resetGame(){
-        Intent intent = new Intent(this, activity_menu.class);
-        startActivity(intent);
-    }
 }

@@ -1,20 +1,13 @@
 package com.example.labb2;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 
 
 public class activity_main extends AppCompatActivity implements View.OnClickListener {
@@ -31,6 +24,10 @@ public class activity_main extends AppCompatActivity implements View.OnClickList
     private graphics GraphicsManager;
     private ArrayList<TextView> stepList;
     private TextView guessingWord;
+    private ArrayList<Button> btnList;
+    private Button restartBtn;
+    private TextView resultText;
+    private Button menuBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +37,7 @@ public class activity_main extends AppCompatActivity implements View.OnClickList
         initButtons();
         initTextViews();
 
-        // Intent data -> get difficulty
+        // Intent data -> get difficulty; Not implemented
         Bundle extras = getIntent().getExtras();
         String difficulty = extras.getString("difficulty");
         Log.d(TAG, "extras data: "+difficulty);
@@ -48,6 +45,7 @@ public class activity_main extends AppCompatActivity implements View.OnClickList
 
         GraphicsManager = new graphics();
         initGraphics();
+        initRestartOpt();
 
         GH = new gameHandler(difficulty);
         GH.pickRandomWord();
@@ -58,9 +56,9 @@ public class activity_main extends AppCompatActivity implements View.OnClickList
     }
 
     public void initButtons() {
-        ArrayList<Button> btnList = new ArrayList<Button>();
+        btnList = new ArrayList<>();
 
-        int[] buttonIds = {R.id.button, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button8, R.id.button10, R.id.button11, R.id.button12, R.id.button13, R.id.button14, R.id.button15, R.id.button16, R.id.button17, R.id.button18, R.id.button27, R.id.button28, R.id.button29, R.id.button30, R.id.button31, R.id.button32, R.id.button33, R.id.button34, R.id.button35, R.id.button36};
+        int[] buttonIds = new int[]{R.id.button, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button8, R.id.button10, R.id.button11, R.id.button12, R.id.button13, R.id.button14, R.id.button15, R.id.button16, R.id.button17, R.id.button18, R.id.button27, R.id.button28, R.id.button29, R.id.button30, R.id.button31, R.id.button32, R.id.button33, R.id.button34, R.id.button35, R.id.button36};
 
         for (int buttonId : buttonIds) {
             Button b = findViewById(buttonId);
@@ -69,19 +67,25 @@ public class activity_main extends AppCompatActivity implements View.OnClickList
         }
     }
     public void initGraphics(){
-        GraphicsManager.setVisibility(step1, "invisible");
-        GraphicsManager.setVisibility(step2, "invisible");
-        GraphicsManager.setVisibility(step3, "invisible");
-        GraphicsManager.setVisibility(step4, "invisible");
-        GraphicsManager.setVisibility(step5, "invisible");
-        GraphicsManager.setVisibility(step6, "invisible");
-        GraphicsManager.setVisibility(step7, "invisible");
+        for (TextView a :stepList) {
+            GraphicsManager.setVisibility(a, "invisible");
+        }
     }
     public void initGuessingWord(){
         char[] chars = GH.getUnknownWord();
         String holder = new String(chars);
         guessingWord.setText(holder);
 
+    }
+    public void initRestartOpt(){
+        restartBtn = findViewById(R.id.restartBtn);
+        resultText = findViewById(R.id.resultText);
+        menuBtn = findViewById(R.id.menuBtn);
+        menuBtn.setAlpha(0);
+        restartBtn.setAlpha(0);
+        resultText.setAlpha(0);
+
+        restartBtn.setEnabled(false);
     }
     public void setGuessingWord(char[] holder){
         String temp = new String(holder);
@@ -98,7 +102,7 @@ public class activity_main extends AppCompatActivity implements View.OnClickList
 
         guessingWord = findViewById(R.id.guessingWord);
 
-        stepList = new ArrayList<TextView>();
+        stepList = new ArrayList<>();
         stepList.add(step1);
         stepList.add(step2);
         stepList.add(step3);
@@ -116,8 +120,8 @@ public class activity_main extends AppCompatActivity implements View.OnClickList
         b.setVisibility(View.INVISIBLE);
         Log.d(TAG, "onClick: " + name);
 
-        if(GH.checkLetterContains(name) == true){
-            // Add letter to the word displayed on screen
+        if(GH.checkLetterContains(name)){
+
             char c = name.charAt(0);
             Log.d(TAG, "name.charAt(0): "+c);
             char[] holder = GH.insertCorrectChars(c);
@@ -125,7 +129,9 @@ public class activity_main extends AppCompatActivity implements View.OnClickList
             if(GH.checkWin()){
                 // Game ended
                 Log.d(TAG, "---GameEnded Win---");
-                showRestartAlert(findViewById(R.id.west));
+                GraphicsManager.disableChoiceBtns(btnList);
+                GraphicsManager.enableRestartOpt(restartBtn, resultText,menuBtn , getApplicationContext(), "You Won");
+
             }
         }else{
             int failNmr = GH.getRound();
@@ -133,30 +139,23 @@ public class activity_main extends AppCompatActivity implements View.OnClickList
             if(failNmr == 6){
                 // Game ended
                 Log.d(TAG, "---GameEnded Loss----");
-                showRestartAlert(findViewById(R.id.west));
+                GraphicsManager.disableChoiceBtns(btnList);
+                GraphicsManager.enableRestartOpt(restartBtn, resultText,menuBtn, getApplicationContext(), "You Lost");
+
             }
             GraphicsManager.setVisibility(stepList.get(failNmr), "visible");
             GH.nextRound();
         }
 
-
-    }
-    public void showRestartAlert(View view){
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-        alertBuilder.setTitle("Game has ended");
-        alertBuilder.setMessage("Restart?");
-
-        alertBuilder.setPositiveButton("Restart", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                GH.resetGame();
-
-                dialogInterface.cancel();
-            }
-        });
-
-        AlertDialog dialog = alertBuilder.create();
-        dialog.show();
     }
 
+    public void restartClicked(View view) {
+        recreate();
+    }
+
+    public void menuClicked(View view) {
+        Intent intent = new Intent(getApplicationContext(), activity_menu.class);
+        startActivity(intent);
+
+    }
 }
