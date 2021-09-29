@@ -4,6 +4,7 @@
     <shared>
       <config>
         <device id="pixel_2" />
+        <device id="Nexus 6" />
         <device id="pixel_4a" />
         <device id="pixel" />
         <device id="pixel_3_xl" />
@@ -12,7 +13,6 @@
         <device id="pixel_3" />
         <device id="pixel_3a" />
         <device id="tv_1080p" />
-        <device id="wear_square" />
         <target>android-23</target>
       </config>
     </shared>
@@ -25,10 +25,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8409b827-9c4d-422f-b901-26812ae7d02e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-    </list>
+    <list default="true" id="8409b827-9c4d-422f-b901-26812ae7d02e" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
