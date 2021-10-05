@@ -86,6 +86,9 @@ public class activity_main extends AppCompatActivity implements View.OnClickList
         resultText.setAlpha(0);
 
         restartBtn.setEnabled(false);
+        menuBtn.setEnabled(false);
+        menuBtn.setVisibility(View.GONE);
+        restartBtn.setVisibility(View.GONE);
     }
     public void setGuessingWord(char[] holder){
         String temp = new String(holder);

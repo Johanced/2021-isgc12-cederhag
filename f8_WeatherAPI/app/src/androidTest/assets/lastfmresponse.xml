@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<similarartists artist="Cher">
+    <artist>
+        <name>Sonny and Cher</name>
+        <match>1</match>
+        <url>www.last.fm/music/Sonny%2B%2526%2BCher</url>
+        <streamable>1</streamable>
+    </artist>
+    <artist>
+        <name>Babel</name>
+        <match>1</match>
+        <url>www.last.fm/music/Sonny%2B%2526%2BCher</url>
+        <streamable>1</streamable>
+    </artist>
+    <artist>
+        <name>Johnson</name>
+        <match>1</match>
+        <url>www.last.fm/music/Sonny%2B%2526%2BCher</url>
+        <streamable>1</streamable>
+    </artist>
+    <artist>
+        <name>Kulla</name>
+        <match>1</match>
+        <url>www.last.fm/music/Sonny%2B%2526%2BCher</url>
+        <streamable>1</streamable>
+    </artist>
+</similarartists>

@@ -4,6 +4,8 @@
     <shared>
       <config>
         <device id="pixel_2" />
+        <device id="pixel_5" />
+        <device id="Nexus 5X" />
         <device id="Nexus 6" />
         <device id="pixel_4a" />
         <device id="pixel" />
@@ -11,8 +13,6 @@
         <device id="pixel_2_xl" />
         <device id="pixel_xl" />
         <device id="pixel_3" />
-        <device id="pixel_3a" />
-        <device id="tv_1080p" />
         <target>android-23</target>
       </config>
     </shared>
@@ -25,13 +25,20 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8409b827-9c4d-422f-b901-26812ae7d02e" name="Default Changelist" comment="" />
+    <list default="true" id="8409b827-9c4d-422f-b901-26812ae7d02e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/labb2/activity_main.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/labb2/activity_main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/labb2/graphics.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/labb2/graphics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\johan\.android\avd\Pixel_2_API_30.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\johan\.android\avd\Nexus_5_API_30.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
