@@ -38,7 +38,7 @@
                 android:minHeight="48dp"
                 android:text="Artist"
                 tools:ignore="HardcodedText"
-                 />
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/limitSearchField"
@@ -48,7 +48,8 @@
                 android:minHeight="48dp"
                 android:layout_width="0dp"
                 android:text="5"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <ListView
