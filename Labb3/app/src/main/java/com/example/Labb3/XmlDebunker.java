@@ -48,8 +48,8 @@ public class XmlDebunker {
                                 Log.d(TAG, "getAttribute: "+parser.getAttributeValue(0));
                                 if(parser.getAttributeValue(0).equalsIgnoreCase("failed")){
                                     Log.d(TAG, "parse: FAILED");
-                                    toast.setText("Search failed, try again!");
-                                    toast.show();
+                                    //toast.setText("Search failed, try again!");
+                                    //toast.show();
 
                                 }
                             }
