@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Labb4</string>
+    <string name="preference_file_key">com.example.labb4.localDataDB</string>
 </resources>

@@ -26,7 +26,7 @@ public class VolleyMain {
             Log.d(TAG, "getSearchString: Exception caught! "+e);
         }
     }
-    public void buildUrl(String isSimilarSearch){
+    public void buildUrl(String isSimilarSearch, int antal){
         String holder = "https://www.myapifilms.com/imdb/idIMDB?title=";
         String and = "&";
         holder = holder.concat(searchString);
@@ -35,7 +35,10 @@ public class VolleyMain {
         String apiKey = "token=ef4d3f92-e0df-4646-9f48-b5a116ace7b6";
         holder = holder.concat(apiKey);
         holder = holder.concat(and);
-        holder = holder.concat("format=json&language=en-us&aka=0&business=0&seasons=0&seasonYear=0&technical=0&filter=3&exactFilter=0&limit=10&forceYear=0&trailers=0&movieTrivia=0&awards=0&moviePhotos=0&movieVideos=0&actors=0&biography=0&uniqueName=0&filmography=0&bornAndDead=0&starSign=0&actorActress=0&actorTrivia=0&");
+        holder = holder.concat("format=json&language=en-us&aka=0&business=0&seasons=0&seasonYear=0&technical=0&filter=3&exactFilter=0&limit=");
+        holder = holder.concat(String.valueOf(antal));
+        holder = holder.concat(and);
+        holder = holder.concat("forceYear=0&trailers=0&movieTrivia=0&awards=0&moviePhotos=0&movieVideos=0&actors=0&biography=0&uniqueName=0&filmography=0&bornAndDead=0&starSign=0&actorActress=0&actorTrivia=0&");
         holder = holder.concat("similarMovies="+isSimilarSearch);
         holder = holder.concat("&adultSearch=0&goofs=0&keyword=0&quotes=0&fullSize=0&companyCredits=0&filmingLocations=0");
         url = holder;

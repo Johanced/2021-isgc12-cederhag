@@ -23,22 +23,41 @@ public class JsonParser {
             JSONObject jsonObj = new JSONObject(responseContent);
             JSONObject jsonObjData = jsonObj.getJSONObject("data");
             JSONArray movies = jsonObjData.getJSONArray("movies");
-            ArrayList<Movie> movieList = new ArrayList<Movie>();
+            ArrayList<Movie> movieList = new ArrayList<>();
 
             for (int i = 0; i<movies.length(); i++) {
-                Movie movie = new Movie();
+                Movie movie = new Movie("test",404);
                 JSONObject mov = movies.getJSONObject(i);
-                String name = mov.getString("title");
-                Log.d(TAG, "parse: getTitle: "+name);
-                movie.setName(name);
+                Boolean one = false;
+                Boolean two = false;
 
-                movieList.add(movie);
+                if(mov.has("title")){
+                    String name = mov.getString("title");
+                    Log.d(TAG, "parse: getTitle: "+name);
+                    movie.setName(name);
+                    one = true;
+                }
+                if(mov.has("year")){
+                    int year = Integer.parseInt(mov.getString("year"));
+                    Log.d(TAG, "parse: getYear: "+year);
+                    movie.setYear(year);
+                    two = true;
+                }
+                if(one.equals(true) && two.equals(true)){
+                    movieList.add(movie);
+                }
+
+
 
             }
 
             return movieList;
-        }catch(NullPointerException | JSONException e){
+        }catch(NullPointerException e){
             Log.d(TAG, "parse: Error: "+e);
+        }catch (JSONException u){
+            Log.d(TAG, "parse: JSONError: "+u);
+        }catch(NumberFormatException t){
+            Log.d(TAG, "parse: NumberFormatException: "+t);
         }
 
         return null;
@@ -46,7 +65,7 @@ public class JsonParser {
     public List<Movie> parseSimilar (String responseContent){
         Log.d(TAG, "parse: Starting...");
         try{
-            ArrayList<Movie> movieList = new ArrayList<Movie>();
+            ArrayList<Movie> movieList = new ArrayList<>();
             JSONObject jsonObj = new JSONObject(responseContent);
             JSONObject jsonObjData = jsonObj.getJSONObject("data");
             JSONArray movies = jsonObjData.getJSONArray("movies");
@@ -55,13 +74,15 @@ public class JsonParser {
                 if(elem != null){
                     JSONArray simMov = elem.getJSONArray("similarMovies");
                     if(simMov != null){
-                        for(int j = 0; j<simMov.length(); j++){
+                        for(int j =0; j<simMov.length();j++) {
                             JSONObject innerMov = simMov.getJSONObject(j);
-                            if(innerMov != null){
-                                Movie movie = new Movie();
-                                movie.setName(innerMov.getString("name"));
-                                Log.d(TAG, "parseSimilar: innerMov name = "+innerMov.getString("name"));
-                                movieList.add(movie);
+                            if (innerMov != null) {
+                                if (innerMov.has("name")) {
+                                    String name = innerMov.getString("name");
+                                    Movie mov = new Movie(name, 404);
+                                    Log.d(TAG, "parse: getName: " + name);
+                                    movieList.add(mov);
+                                }
                             }
                         }
                     }
@@ -72,6 +93,7 @@ public class JsonParser {
             return movieList;
         }catch(NullPointerException | JSONException e){
             Log.d(TAG, "parse: Error: "+e);
+
         }
 
         return null;

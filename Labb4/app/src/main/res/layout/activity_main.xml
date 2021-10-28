@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="411dp"
-        android:layout_height="726dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -56,31 +56,49 @@
             android:id="@+id/searchTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:importantForAutofill="no"
+            android:hint="Search here"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:text="Name"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText"
+            android:autofillHints="Search here" />
 
         <ListView
             android:id="@+id/ListView"
             android:layout_width="match_parent"
+            android:layout_height="205dp"
+            android:choiceMode="singleChoice"
+            android:listSelector="#48484848" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/TextViewDiv"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Saved Movies"
+            android:textSize="22sp"
+            tools:ignore="HardcodedText" />
+
+        <ListView
+            android:id="@+id/ListView3"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:choiceMode="singleChoice"
             android:listSelector="#48484848" />
 
         <Button
-            android:id="@+id/button5"
-            android:layout_width="match_parent"
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
-
-        <ListView
-            android:id="@+id/ListView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:choiceMode="singleChoice"
-            android:listSelector="#48484848" />
+            android:minHeight="48dp"
+            android:onClick="removeMovieBtn"
+            android:text="Remove"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 

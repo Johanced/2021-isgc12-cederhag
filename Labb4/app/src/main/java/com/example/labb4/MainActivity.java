@@ -22,41 +22,59 @@ public class MainActivity extends AppCompatActivity {
     private String completeResponse;
     private ArrayList<Movie> movieList;
     private ArrayList<Movie> savedMovieList;
-    private ArrayAdapter<Movie> adapt;
-    private ListView listview;
+    private MovieViewAdapter movAdapt;
     private MyAsyncTask myParseTask;
     private JsonParser jsonParser;
-    private ListView saveListView;
-    private ArrayAdapter<Movie> saveAdapt;
     private int movieListPos;
+    private int savedMovieListPos;
+    private MovieViewAdapter savedMovAdapt;
+    //private localDBPreferences localDB;
+    private ListView saveListView;
+    private ListView lv1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate: i am in onCreate");
+
         searchTextField = findViewById(R.id.searchTextField);
-        listview = findViewById(R.id.ListView);
-        saveListView = findViewById(R.id.ListView2);
+        lv1 = findViewById(R.id.ListView);
+        saveListView = findViewById(R.id.ListView3);
+
+        //TODO; Add possibility of saving data, "savedMovieList" should be Loaded on startup and saved on shutdown! -> SharedPreferences
+        //localDBPreferences.initializeInstance(getApplicationContext());
+        //localDB = localDBPreferences.getInstance();
 
         volleyManager = new VolleyMain(getApplicationContext());
         jsonParser = new JsonParser();
-        movieList = new ArrayList<>();
-        savedMovieList = new ArrayList<>();
 
-        adapt = new ArrayAdapter<>(this, R.layout.item_view, R.id.itemTextView, movieList);
-        saveAdapt = new ArrayAdapter<>(this, R.layout.item_view, R.id.itemTextView, savedMovieList);
-        saveListView.setAdapter(saveAdapt);
-        listview.setAdapter(adapt);
+        movieList = new ArrayList<Movie>();
+        savedMovieList = new ArrayList<Movie>();
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        movAdapt = new MovieViewAdapter(this, movieList);
+        savedMovAdapt = new MovieViewAdapter(this, savedMovieList);
+
+        saveListView.setAdapter(savedMovAdapt);
+        lv1.setAdapter(movAdapt);
+
+        //TODO; Test Load Data From Here
+
+        saveListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                savedMovieListPos = pos;
+                Log.d(TAG, "onItemClick: savePos = "+savedMovieListPos);
+            }
+        });
+
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
                 movieListPos = pos;
                 Log.d(TAG, "onItemClick: Pos = "+movieListPos);
             }
         });
-
-        //TODO; Add possibility of saving data, "savedMovieList" should be Loaded on startup and saved on shutdown! -> SharedPreferences
 
     }
     public void updatedData(List itemsArrayList, ArrayAdapter<Movie> adapter) {
@@ -78,19 +96,19 @@ public class MainActivity extends AppCompatActivity {
         showToast("Processing Search..");
         movieList.clear();
         volleyManager.getSearchString(String.valueOf(searchTextField.getText()));
-        volleyManager.buildUrl("0");
+        volleyManager.buildUrl("0",10);
         volleyManager.sendRequest(new VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 completeResponse = result;
-                Log.d(TAG, "onSuccess: "+completeResponse);
+                Log.d(TAG, "onSuccess: got response back to main!");
 
                 // AsyncTask to parse response
                 // AsyncTask.execute
                 myParseTask = new MyAsyncTask(jsonParser,"Search", completeResponse, new TaskCallback() {
                     @Override
                     public void onResponseGet(List<Movie> list) {
-                        updatedData(list, adapt);
+                        updatedData(list, movAdapt);
                     }
                 });
                 myParseTask.execute();
@@ -99,19 +117,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onError(String result) {
                 Log.d(TAG, "onError: "+result);
+                showToast("Error: MyApiFilms is shaky..");
+
             }
         });
     }
 
     public void saveBtnClicked(View view) {
         try{
-            Movie aMovie = (Movie) listview.getItemAtPosition(movieListPos);
-            Log.d(TAG, "saveBtnClicked: movieName = "+aMovie.getName());
-            savedMovieList.add(aMovie);
+            if(movieList.isEmpty()){
+                showToast("Can't save movie, please select a movie!");
+            }
+            else{
+                Movie aMovie = (Movie) lv1.getItemAtPosition(movieListPos);
+                Log.d(TAG, "saveBtnClicked: movieName = "+aMovie.getName());
 
-            Log.d(TAG, "saveBtnClicked: "+savedMovieList.get(0).getName());
-            saveAdapt.notifyDataSetChanged();
-        }catch(NullPointerException e){
+                savedMovieList.add(aMovie);
+                Log.d(TAG, "saveBtnClicked: savedMovieList.count: "+savedMovieList.size());
+                savedMovAdapt.notifyDataSetChanged();
+                //updatedData(savedMovieList, savedMovAdapt);
+            }
+
+        }catch(IndexOutOfBoundsException e){
             Log.d(TAG, "saveBtnClicked: error: "+e);
         }
 
@@ -120,24 +147,25 @@ public class MainActivity extends AppCompatActivity {
     public void searchSimilarBtnClicked(View view) {
 
         try{
-            //TODO; Add Toast "Processing Search..."
-            Movie mov = (Movie)listview.getItemAtPosition(movieListPos);
-            volleyManager.getSearchString(mov.getName());
+            //TODO; TEST
+            Movie mov = movieList.get(movieListPos);
+            showToast("Processing Similar Search..");
+            movieList.clear();
 
-            volleyManager.buildUrl("1");
+            volleyManager.getSearchString(mov.getName());
+            volleyManager.buildUrl("1",1);
             volleyManager.sendRequest(new VolleyCallback() {
                 @Override
                 public void onSuccess(String result) {
                     completeResponse = result;
-                    Log.d(TAG, "onSuccess: "+completeResponse);
+                    Log.d(TAG, "onSuccess: got response back to main!");
 
                     // AsyncTask to parse response
                     // AsyncTask.execute
                     myParseTask = new MyAsyncTask(jsonParser,"SearchSimilar", completeResponse, new TaskCallback() {
                         @Override
                         public void onResponseGet(List<Movie> list) {
-                            movieList.clear();
-                            updatedData(list, adapt);
+                            updatedData(list, movAdapt);
                             searchTextField.setText(mov.getName());
                         }
                     });
@@ -146,14 +174,53 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onError(String result) {
+
                     Log.d(TAG, "onError: "+result);
                 }
             });
 
         }catch(IndexOutOfBoundsException e){
             Log.d(TAG, "searchSimilarBtnClicked: Error, "+e);
-            //TODO; Add Error Toast!
+            e.printStackTrace();
+            showToast("Something went wrong, try again..");
         }
 
     }
+    public void removeMovieBtn(View view) {
+        if(savedMovieList.isEmpty()){
+            showToast("Can't remove, list is empty!");
+        }else{
+            savedMovieList.remove(savedMovieListPos);
+            savedMovAdapt.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        // TODO Auto-generated method stub
+        super.onPause();
+        Log.d(TAG, "onPause: savedMovieList.count: "+savedMovieList.size());
+        localDBPreferences localDB = new localDBPreferences(getApplicationContext());
+        //localDB.saveCurrentData(savedMovieList);
+        localDB.testSaveData(savedMovieList);
+        Log.d(TAG,"Saved: "+savedMovieList);
+    }
+
+    @Override
+    protected void onStart() {
+        // TODO Auto-generated method stub
+        super.onStart();
+        Log.d(TAG,"I am in onstart");
+        localDBPreferences localDb = new localDBPreferences(getApplicationContext());
+        ArrayList<Movie> holderList = localDb.testLoadData();
+        Log.d(TAG, "onStart: Loading movies...");
+        Log.d(TAG, "onStart: holderList: "+holderList);
+        savedMovieList.clear();
+        for (Movie mov: holderList) {
+            savedMovieList.add(mov);
+            Log.d(TAG, "loaded movie : "+mov.name);
+        }
+        savedMovAdapt.notifyDataSetChanged();
+    }
+
 }
