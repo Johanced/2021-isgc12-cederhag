@@ -15,7 +15,7 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="Hangman"
+        android:text="@string/hangman"
         android:textColor="@color/light_font"
         android:textSize="50sp"
         android:textStyle="bold"
@@ -32,7 +32,7 @@
         android:layout_height="58dp"
         android:backgroundTint="#454545"
         android:onClick="playClicked"
-        android:text="Play"
+        android:text="@string/play"
         android:textStyle="bold"
         android:textSize="22sp"
         android:textColor="@color/white"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:background="@android:color/transparent"
             android:gravity="center"
             android:popupBackground="#474747"
@@ -72,10 +72,12 @@
         <ImageView
             android:layout_width="70dp"
             android:layout_height="45dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
-            android:src="@drawable/dropicon" />
+            android:contentDescription="@string/todo"
+            android:src="@drawable/dropicon"
+            tools:ignore="ImageContrastCheck" />
 
     </RelativeLayout>
 

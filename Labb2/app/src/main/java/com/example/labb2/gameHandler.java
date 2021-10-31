@@ -23,8 +23,6 @@ public class gameHandler extends AppCompatActivity {
         chosenDifficulty = difficulty;
         // Handle level of difficulty; not implemented
 
-
-
     }
     public void initWords(){
         wordsLibrary.add("dog");

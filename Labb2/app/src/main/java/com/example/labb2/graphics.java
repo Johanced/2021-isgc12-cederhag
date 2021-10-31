@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class graphics extends AppCompatActivity {
 
 
-    public void setVisibility(TextView v, String choice){
+    public void setVisibility(View v, String choice){
         if(choice == "visible") {
             v.setVisibility(View.VISIBLE);
 
@@ -41,9 +41,6 @@ public class graphics extends AppCompatActivity {
         //b.startAnimation(animFadeIn);
         //v.startAnimation(animFadeIn);
         b.setEnabled(true);
-        b1.setEnabled(true);
-        b.setVisibility(View.VISIBLE);
-        b1.setVisibility(View.VISIBLE);
 
         v.animate().alpha(1.0f).setDuration(3000).start();
         b.animate().alpha(1.0f).setDuration(3000).start();

@@ -13,16 +13,16 @@ import java.util.ArrayList;
 public class activity_main extends AppCompatActivity implements View.OnClickListener {
 
     private final String  TAG = "Main";
-    public TextView step1;
-    public TextView step2;
-    public TextView step3;
-    public TextView step4;
-    public TextView step5;
-    public TextView step6;
-    public TextView step7;
+    public View step1;
+    public View step2;
+    public View step3;
+    public View step4;
+    public View step5;
+    public View step6;
+    public View step7;
     private gameHandler GH;
     private graphics GraphicsManager;
-    private ArrayList<TextView> stepList;
+    private ArrayList<View> stepList;
     private TextView guessingWord;
     private ArrayList<Button> btnList;
     private Button restartBtn;
@@ -67,7 +67,7 @@ public class activity_main extends AppCompatActivity implements View.OnClickList
         }
     }
     public void initGraphics(){
-        for (TextView a :stepList) {
+        for (View a :stepList) {
             GraphicsManager.setVisibility(a, "invisible");
         }
     }
@@ -86,9 +86,6 @@ public class activity_main extends AppCompatActivity implements View.OnClickList
         resultText.setAlpha(0);
 
         restartBtn.setEnabled(false);
-        menuBtn.setEnabled(false);
-        menuBtn.setVisibility(View.GONE);
-        restartBtn.setVisibility(View.GONE);
     }
     public void setGuessingWord(char[] holder){
         String temp = new String(holder);
