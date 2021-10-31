@@ -8,11 +8,11 @@ import java.util.List;
 public class MyAsyncTask extends AsyncTask<Void, Void, List<Artist>> {
 
     private static final String TAG = "MyAsyncTask";
-    private XmlDebunker parser;
+    private XmlParser parser;
     private TaskCallback callBack;
     private String completeString;
 
-    public MyAsyncTask(XmlDebunker parser,String completeString ,TaskCallback callBack){
+    public MyAsyncTask(XmlParser parser, String completeString , TaskCallback callBack){
         this.parser = parser;
         this.callBack = callBack;
         this.completeString = completeString;

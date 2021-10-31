@@ -12,14 +12,14 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XmlDebunker {
+public class XmlParser {
 
     private static final String TAG = "XmlDebunker";
     private List<Artist> artists = new ArrayList<>();
     private Artist artist;
     private Toast toast;
 
-    public XmlDebunker(Toast toast){
+    public XmlParser(Toast toast){
         this.toast = toast;
     }
     
@@ -48,8 +48,6 @@ public class XmlDebunker {
                                 Log.d(TAG, "getAttribute: "+parser.getAttributeValue(0));
                                 if(parser.getAttributeValue(0).equalsIgnoreCase("failed")){
                                     Log.d(TAG, "parse: FAILED");
-                                    //toast.setText("Search failed, try again!");
-                                    //toast.show();
 
                                 }
                             }

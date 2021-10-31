@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<Artist> adapt;
     private EditText searchTextField;
     private EditText limitSearchField;
-    private XmlDebunker parser;
+    private XmlParser parser;
     private List<Artist> artistList;
     private MyAsyncTask myParseTask;
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         artistList = new ArrayList<>();
 
-        parser = new XmlDebunker(new Toast(this));
+        parser = new XmlParser(new Toast(this));
 
         adapt = new ArrayAdapter<>(this, R.layout.item_view, R.id.itemTextView, artistList);
         artistListView.setAdapter(adapt);
@@ -63,31 +63,43 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Search text: "+searchTextField.getText());
 
         reqMan.getSearchName(String.valueOf(searchTextField.getText()));
-        reqMan.getLimitNumber(limitSearchField.getText().toString());
+        if(reqMan.getLimitNumber(limitSearchField.getText().toString())){
 
-        reqMan.createVolleyReq(new VolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-               
-                completeResponse = result;
-                Log.d(TAG, "completeResponse: "+completeResponse);
+            reqMan.createVolleyReq(new VolleyCallback() {
+                @Override
+                public void onSuccess(String result) {
 
-                // New AsyncTask
-                myParseTask = new MyAsyncTask(parser,completeResponse , result1 -> {
-                    artistList = result1;
-                    // Update ListView Data last!
-                    updatedData(artistList);
-                });
-                myParseTask.execute();
-            }
+                    completeResponse = result;
+                    Log.d(TAG, "completeResponse: "+completeResponse);
 
-            @Override
-            public void onError(String result) {
-                Log.d(TAG, "onError: Error Occurred with volley request");
-            }
-        });
+                    // New AsyncTask
+                    myParseTask = new MyAsyncTask(parser,completeResponse , result1 -> {
+                        artistList = result1;
+                        if(artistList.size() < 1){
+                            showToast("Search resulted in 0 Artists, try again");
+                            artistList.clear();
+                            updatedData(artistList);
+                        }else{
+                            // Update ListView Data last!
+                            updatedData(artistList);
+                        }
 
+                    });
+                    myParseTask.execute();
+                }
 
+                @Override
+                public void onError(String result) {
+                    Log.d(TAG, "onError: Error Occurred with volley request");
+                }
+            });
+        }else{
+            showToast("Enter valid limit!");
+        }
+    }
+    public void showToast(String msg){
+
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
 
     }
 }
