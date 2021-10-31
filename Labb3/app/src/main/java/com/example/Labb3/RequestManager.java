@@ -10,18 +10,13 @@ import com.android.volley.toolbox.Volley;
 
 public class RequestManager {
 
-    private String url = "";
-    private final String apiKey = "05b5c7a3f67a50ca72f3ff033c7733a2";
     private static final String TAG = "Req";
     private final Context ctx;
     private String searchArtist;
     private String limit;
 
-
     public RequestManager(Context context){
         this.ctx = context;
-        limit = "2000";
-
     }
 
     public void getSearchName(String searchName){
@@ -37,6 +32,7 @@ public class RequestManager {
     public Boolean getLimitNumber(String limit){
 
         try{
+            Log.d(TAG, "getLimitNumber: "+limit);
             int test = Integer.parseInt(limit);
             if(test > 0) {
                 this.limit = String.valueOf(test);
@@ -58,9 +54,10 @@ public class RequestManager {
         String holder = "https://ws.audioscrobbler.com/2.0/?limit="+limit+"&method=artist.getsimilar&artist=";
         holder = holder.concat(searchArtist.replaceAll(" ", ""));
         holder = holder.concat("&api_key=");
+        String apiKey = "05b5c7a3f67a50ca72f3ff033c7733a2";
         holder = holder.concat(apiKey);
-        url = holder;
-        Log.d(TAG, "Sending this request: "+url);
+        String url = holder;
+        Log.d(TAG, "Sending this request: "+ url);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
             Log.d(TAG, "onResponse: Got Response..");
@@ -69,9 +66,7 @@ public class RequestManager {
                 error -> {
                     Log.d(TAG, "onErrorResponse: "+error.toString());
                     callback.onError("error"+error);
-    
                 });
-
             reqQueue.add(stringRequest);
     }
 

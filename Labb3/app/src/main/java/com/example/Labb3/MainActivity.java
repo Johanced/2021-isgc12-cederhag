@@ -63,7 +63,12 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Search text: "+searchTextField.getText());
 
         reqMan.getSearchName(String.valueOf(searchTextField.getText()));
-        if(reqMan.getLimitNumber(limitSearchField.getText().toString())){
+        Boolean isValidLimit = reqMan.getLimitNumber(limitSearchField.getText().toString());
+        if(!isValidLimit){
+            reqMan.getLimitNumber("1");
+            showToast("Invalid limit, limit set to 1");
+            limitSearchField.setText("1");
+        }
 
             reqMan.createVolleyReq(new VolleyCallback() {
                 @Override
@@ -83,19 +88,21 @@ public class MainActivity extends AppCompatActivity {
                             // Update ListView Data last!
                             updatedData(artistList);
                         }
-
                     });
                     myParseTask.execute();
                 }
 
                 @Override
                 public void onError(String result) {
-                    Log.d(TAG, "onError: Error Occurred with volley request");
+                    Log.d(TAG, "onError: Error, : "+result);
+                    if(result.contains("java.io.IOException")){
+                        showToast("Invalid search name, try again");
+                    }else{
+                        showToast("An error occurred with the current search, try again");
+                    }
+
                 }
             });
-        }else{
-            showToast("Enter valid limit!");
-        }
     }
     public void showToast(String msg){
 
