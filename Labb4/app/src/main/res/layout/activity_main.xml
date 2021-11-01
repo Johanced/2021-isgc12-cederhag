@@ -68,7 +68,8 @@
             android:layout_width="match_parent"
             android:layout_height="205dp"
             android:choiceMode="singleChoice"
-            android:listSelector="#48484848" />
+            android:listSelector="#48484848"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <View
             android:id="@+id/divider1"

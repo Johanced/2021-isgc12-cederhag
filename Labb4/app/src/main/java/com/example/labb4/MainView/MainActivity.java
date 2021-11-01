@@ -93,12 +93,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void searchBtnClicked(View view) {
-        showToast("Processing Search..");
         movieList.clear();
         Boolean testString = volleyManager.getSearchString(String.valueOf(searchTextField.getText()));
         Log.d(TAG, "searchBtnClicked: getSearchString: "+testString);
         if(testString.equals(true)){
             volleyManager.buildUrl("0","10");
+            showToast("Processing Search..");
             volleyManager.sendRequest(new VolleyCallback() {
                 @Override
                 public void onSuccess(String result) {
@@ -110,7 +110,18 @@ public class MainActivity extends AppCompatActivity {
                     myParseTask = new MyAsyncTask(jsonParser,"Search", completeResponse, new TaskCallback() {
                         @Override
                         public void onResponseGet(ArrayList<Movie> list) {
-                            updatedData(list, movAdapt);
+                            try{
+                                if(list.isEmpty()){
+                                    Log.d(TAG, "onResponseGet: List.isEmpty = true");
+                                    showToast("Searched resulted in 0 hits!");
+                                }else{
+                                    updatedData(list, movAdapt);
+                                }
+                            }catch(NullPointerException e){
+                                Log.d(TAG, "onResponseGet ln 121: Error: "+e);
+                                showToast("Searched resulted in 0 hits!");
+                            }
+
                         }
                     });
                     myParseTask.execute();
@@ -119,7 +130,12 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onError(String result) {
                     Log.d(TAG, "onError: "+result);
-                    showToast("Error: I Blame MyApiFilms for this..");
+                    if(result.contains("java.io.IOException:")){
+                        showToast("Invalid search sequence!");
+                    }else{
+                        showToast("MyApiFilms may be down, try again..");
+                    }
+
 
                 }
             });

@@ -1,16 +1,15 @@
 package com.example.labb4.VolleyClasses;
 
+import android.util.Log;
+
 public class Url {
     // Default settings
 
-
-    // https://www.myapifilms.com/imdb/idIMDB?title=Gladiator&token=ef4d3f92-e0df-4646-9f48-b5a116ace7b6&format=json&language=en-us&aka=0&business=0&seasons=0&seasonYear=0&technical=0&filter=3&exactFilter=0&limit=10&forceYear=0&trailers=0&movieTrivia=0&awards=0&moviePhotos=0&movieVideos=0&actors=0&biography=0&uniqueName=0&filmography=0&bornAndDead=0&starSign=0&actorActress=0&actorTrivia=0&similarMovies=0&adultSearch=0&goofs=0&keyword=0&quotes=0&fullSize=0&companyCredits=0&filmingLocations=0
-    // https://www.myapifilms.com/imdb/idIMDB?title=Gladiator&token=ef4d3f92-e0df-4646-9f48-b5a116ace7b6&format=json&language=en-us&aka=0&business=0&seasons=0&seasonYear=0&technical=0&filter=2&exactFilter=0&limit=10&forceYear=0&trailers=0&movieTrivia=0&awards=0&moviePhotos=0&movieVideos=0&actors=0&biography=0&uniqueName=0&filmography=0&bornAndDead=0&starSign=0&actorActress=0&actorTrivia=0&similarMovies=0&adultSearch=0&goofs=0&keyword=0&quotes=0&fullSize=0&companyCredits=0&filmingLocations=0
-
+    private final String TAG = "Url";
     private String baseUrl = "https://www.myapifilms.com/imdb/idIMDB?";
     private String movieTitle = "title=Name";
-    private String token = "&token=ef4d3f92-e0df-4646-9f48-b5a116ace7b6";
-    private String format = "&format=json";
+    private String token = "&token=ef4d3f92-e0df-4646-9f48-b5a116ace7b6";  // My Api key
+    private String format = "&format=json"; // Format = json
     private String language = "&language=en-us";
     private String aka = "&aka=0";
     private String business = "&business=0";
@@ -52,9 +51,12 @@ public class Url {
     }
 
     public void setMovieTitle(String movieTitle) {
-        movieTitle.replaceAll(" ", "+");
+        String holder;
+        holder = movieTitle.trim();
+        holder = movieTitle.replaceAll(" ", "+");
+        Log.d(TAG, "setMovieTitle: searchTitle: "+holder);
         this.movieTitle = "title=";
-        this.movieTitle = this.movieTitle.concat(movieTitle);
+        this.movieTitle = this.movieTitle.concat(holder);
     }
 
     public String getToken() {
